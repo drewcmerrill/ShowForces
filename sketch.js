@@ -27,6 +27,7 @@ function draw() {
 
 
 	mover.friction();
+	mover.drag(.2);
 	mover.showVelocity();
 	mover.update();
 	mover.edges();

@@ -28,6 +28,17 @@ class Mover
     }
   }
 
+  drag(dragCoefficient) //dragCoefficient accounts for drag, density, surface area, and 1/2 coefficients
+    {
+      let drag = this.vel.copy();
+      drag.normalize();
+      drag.mult(-1);
+      let speedSq = drag.magSq();
+      drag.setMag(dragCoefficient*speedSq);
+      this.applyForce(drag);
+
+    }
+
   applyForce(force)
   {
     let f = p5.Vector.div(force, this.mass); // A = F/M calculates acceleration according to mass
@@ -35,7 +46,7 @@ class Mover
 
 
 
-     
+
 
   }
 
