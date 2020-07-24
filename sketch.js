@@ -1,5 +1,4 @@
-let moverA;
-let moverB;
+
 
 function setup() {
 	createCanvas(600, 600);
@@ -9,10 +8,9 @@ function setup() {
 function draw() {
 	background(51);
 
-	let gravity = createVector(0,.5);
-	let weightA = p5.Vector.mult(gravity, mover.mass); //calculates weight force by multiplying gravity times mass
-
-	mover.applyForce(weightA);
+	let gravity = createVector(0,1);
+	let weight = p5.Vector.mult(gravity, mover.mass); //calculates weight force by multiplying gravity times mass
+	mover.applyForce(weight);
 
 	if(mouseIsPressed)//when you hold the mouse, the wind blows
 	{
@@ -20,6 +18,12 @@ function draw() {
 		let wind = createVector(windSpeed,0);
 		mover.applyForce(wind);
 	}
+	// if(keyIsPressed)
+	// {
+	// 	let windSpeed = -1;
+	// 	let wind = createVector(windSpeed,0);
+	// 	mover.applyForce(wind);
+	// }
 
 
 	mover.friction();

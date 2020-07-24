@@ -7,7 +7,7 @@ class Mover
     this.acc = createVector(0,0);
     this.mass = m;
     this.r = sqrt(this.mass) * 10; //scales the objects according to their mass
-    this.direction = createVector(0,0);
+
   }
 
   friction()
@@ -32,6 +32,11 @@ class Mover
   {
     let f = p5.Vector.div(force, this.mass); // A = F/M calculates acceleration according to mass
     this.acc.add(f);//adds new acceleration to old acceleration
+
+
+
+     
+
   }
 
   edges()
@@ -58,11 +63,40 @@ class Mover
     }
   }
 
+
   showVelocity()
   {
-    this.direction = p5.Vector.add(this.pos, this.vel);
-    let scale = p5.Vector.mult(this.vel, 2.5);
-    this.direction.add(scale);
+    let direction = p5.Vector.add(this.pos, this.vel);//velocity vector pointing from circle of the ball
+    let scale = p5.Vector.mult(this.vel, 5); //scale the direction vector
+    direction.add(scale); //add the scale to the direction
+    let base = this.pos.copy();
+    stroke(255,0,255);
+    line(base.x, base.y, direction.x, direction.y);
+
+    let arrowSize = 10;
+
+    let bottomRight = p5.Vector.mult(this.vel, .1);
+    bottomRight.x = -1 * this.vel.y;
+    bottomRight.y = this.vel.x;
+    bottomRight.setMag(arrowSize/2);
+    bottomRight.add(direction);
+    let point1x = bottomRight.x;
+    let point1y = bottomRight.y;
+
+    let bottomLeft = p5.Vector.mult(this.vel, .1);
+    bottomLeft.x = this.vel.y;
+    bottomLeft.y = -1 * this.vel.x;
+    bottomLeft.setMag(arrowSize/2);
+    bottomLeft.add(direction);
+    let point2x = bottomLeft.x;
+    let point2y = bottomLeft.y;
+
+    let tip = p5.Vector.mult(this.vel, .5);
+    tip.add(direction);
+    let point3x = tip.x;
+    let point3y = tip.y;
+
+    triangle(point1x, point1y, point2x, point2y, point3x, point3y);
   }
 
   update()
@@ -80,7 +114,6 @@ class Mover
 
 
 
-    stroke(255,0,255);
-    line(this.pos.x, this.pos.y, this.direction.x, this.direction.y);
+
   }
 }
